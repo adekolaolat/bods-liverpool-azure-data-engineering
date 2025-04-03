@@ -1,2 +1,8 @@
-# bods-liverpool-azure-data-engineering
-Build pipeline to pull public bus locations in Liverpool from Bus Open Data Service (BODS) using Azure services.
+
+# Azure Data Pipeline Public Buses in Liverpool City
+
+## Overview
+
+This project focuses on building a data pipeline solution to collect public bus location in Liverpool, United Kingdom using Azure services. 
+
+
