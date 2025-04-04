@@ -1,9 +1,9 @@
 
-# Azure Data Pipeline Public Buses in Liverpool City
+# Azure pipeline to collect Public Bus location data in Liverpool. 
 
 ## Overview
 
-This project focuses on building an Azure data pipeline solution to collect public bus location in Liverpool using **Bus Open Data Service (BODS)** API service.
+This project focuses on building a scalable Azure data pipeline solution to collect public bus location in Liverpool via the **Bus Open Data Service (BODS)** API.
 
 
 ## About BODS
@@ -13,18 +13,30 @@ BODS has open data published by the operators of local bus and coach services ac
 The Bus Open Data Service offers free, license-free access to this information and allows users to give feedback to data publishers.
 
 
-## Why do we need to store this data?
+## Why store this data?
 
-Currently, the Bus Open Data Service (BODS) only provides live data, meaning there is no historical record to analyze trends, identify recurring issues, or build predictive models. By collecting and storing historical bus tracking data, different authorities can analyze operational trends, predict potential delays, and improve service planning.
+Currently, the Bus Open Data Service (BODS) only provides live location data, meaning there is no historical record to analyze trends, identify recurring issues, or build predictive models. By collecting and storing historical bus tracking data, we can analyze operational trends, predict potential delays, and improve service planning.
 
 
 ## Business Use Cases
 
-- Transport Authorities & City Planning would need data to improve route planning, predict delays, and enhance public transport efficiency.
+- Transport Authorities & City Planning need historical data used to make decisons to improve route planning, predict delays, and enhance public transport efficiency.
 
-- Bus Operators can leverage insights from analysis of the historical data to benchmark performance and make strategic decisions to gain a competitive edge.  **Break Monoply !!**
+- Bus Operators can leverage insights from analysis of the historical data to benchmark performance and make strategic decisions to gain a competitive edge or break monopoly in certain regions.
 
 - Help public transport users save money on tickets for routes with multiple operators, reduce travel time, and improve their commuting experience.
+
+
+## Requirements
+
+- [ BODS gov.uk ](https://data.bus-data.dft.gov.uk/) account to get access to API documentations and API key.
+
+- Azure account or create a free account.
+
+- Fundamentals of Azure Data Engineering, Azure Data Factory, Azure Data Lake Gen 2.
+
+- Knowledge of [ Medalllion lakehouse architecture](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
+
 
 
 
