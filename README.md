@@ -1,5 +1,5 @@
 
-# Azure pipeline to collect Public Bus location data in Liverpool. 
+# Azure pipeline to collect public bus location data. 
 
 ## Overview
 
@@ -40,7 +40,7 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 ## Pipeline Overview
 
-This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guide.md) is a walkthrough for creating a scalable Azure solution that automates the collection of raw location data from the two main bus operators (Arriva and Stagecoach) in Liverpool and store these in a query-able file format system using Azure Data Factory and Azure Data Lake Gen 2 (ADLSG2). The stored data would be used for later transformation and processing into usable data for analysis or prediction use cases.
+This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guide.md) is a walkthrough for creating a scalable Azure solution that automates the collection of raw location data from the two major bus operators (Arriva and Stagecoach) in Liverpool and store these in a query-able file format system using Azure Data Factory and Azure Data Lake Gen 2 (ADLSG2). The stored data would be used for later transformation and processing into usable data for analysis or prediction use cases.
 
 
 ![alt text](<images/BODS_to_ADLSG2_bronze.png>)
