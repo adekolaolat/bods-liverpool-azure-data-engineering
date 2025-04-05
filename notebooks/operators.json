@@ -1,0 +1,5 @@
+[
+    { "operator": "AMSY", "apiEndpoint": "datafeed/708" },
+    { "operator": "SCCU", "apiEndpoint": "datafeed/1695" }
+  ]
+  
