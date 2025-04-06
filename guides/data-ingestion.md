@@ -11,3 +11,7 @@ In ADLS Gen2, I’ll store a configuration file for the operators I need to make
 - Store responses into Azure Data Lake Gen2 container.
 - File should be organised in a queryable stucture, using a file naming convention that includes the operator code and timestamp.
 - Keep a config file in ADLSG2 to map API call for each bus operator.
+
+
+
+[ Go to Implementation Steps](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps)
