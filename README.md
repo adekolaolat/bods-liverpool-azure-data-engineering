@@ -10,7 +10,7 @@ This project focuses on building a scalable Azure data pipeline solution to coll
 
 BODS has open data published by the operators of local bus and coach services across England which are timetable, location, fares and disruption data and this has been possible through The Bus Services Act 2017 that requires local bus operators in England to provide specific data between 2020 and 2021. 
 
-The Bus Open Data Service offers free, license-free access to this information and allows users to give feedback to data publishers.
+BODS offers free, license-free access to this information and allows users to give feedback to data publishers.
 
 
 ## Why store this data?
@@ -33,7 +33,7 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 - Azure account or create a free account.
 
-- Fundamentals of Azure Data Engineering, Azure Data Factory, Azure Data Lake Gen 2.
+- Fundamentals of Azure Data Engineering, **Azure Data Factory**, **Azure Data Lake Gen 2**.
 
 - Knowledge of [ Medalllion lakehouse architecture](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
 
