@@ -40,24 +40,22 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 ## Pipeline Overview
 
-This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guide.md) is a walkthrough for implementing a scalable Azure solution that automates the collection of raw location data from the two major bus operators (Arriva and Stagecoach) in Liverpool and store these in a query-able file format system using Azure Data Factory and Azure Data Lake Gen 2 (ADLSG2). The stored data would be used for later transformation and processing into usable data for analysis or prediction use cases.
+This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps) is a walkthrough for implementing a scalable Azure solution that automates the collection of raw location data from the two major bus operators (Arriva and Stagecoach) in Liverpool and store these in a query-able file format system using Azure Data Factory and Azure Data Lake Gen 2 (ADLSG2). The stored data would be used for later transformation and processing into usable data for analysis or prediction use cases.
 
 
 ![alt text](<images/BODS_to_ADLSG2_bronze.png>)
 
 ## Implementation Steps
 - [ Understand the data and how to interact with the BODS API endpoint that is needed](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/bods-data-guide.md). 
-- Data ingestion - Use an Azure data pipline to collect and store data to a data lake.
+- [ Data ingestion - Use an Azure data pipline to collect and store data to a data lake.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#data-ingestion)
 
 ## Data Ingestion
 
-For the data ingestion, I'll be using two resources Azure Data Factory (ADF) and Azure Data Lake Gen 2.
+For data ingestion, I’ll be using two resources - Azure Data Factory (ADF) and Azure Data Lake Storage Gen2 (ADLS Gen2).
 
-For data ingestion, I’ll be using two Azure resources: Azure Data Factory (ADF) and Azure Data Lake Storage Gen2 (ADLS Gen2).
+I’ll like to collect the live bus location data every 5 minutes and storing the raw files saved in ADLS Gen2. Azure Data Factory will handle the orchestration, automating the process of calling the BODS API and saving the responses into the correct location in the data lake.
 
-I’ll be collecting live bus location data every 5 minutes and storing the raw files saved in ADLS Gen2. Azure Data Factory will handle the orchestration, automating the process of calling the BODS API and saving the responses into the correct location in the data lake.
-
-In ADLS Gen2, I’ll store both a configuration file for the operators I need and the raw data, organized in a way that makes it easy to query later. Each raw data file will follow a consistent naming structure that includes the bus operator code and the timestamp of when the data was collected, making it simple to track and manage.
+In ADLS Gen2, I’ll store a configuration file for the operators I need to make my API calls dynamic and also store the raw data, organized in a way that makes it easy to query later. Each raw data file will follow a consistent naming structure that includes the bus operator code and the timestamp of when the data was collected, making it simple to track and manage.
 
 ### Task requirements
 - Schedule and automate API calls every 5 minutes
