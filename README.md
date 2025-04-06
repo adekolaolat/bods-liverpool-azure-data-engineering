@@ -47,5 +47,5 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 ## Implementation Steps
 - [ Understand the data and how to interact with the BODS API endpoint that is needed](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/bods-data-guide.md). 
-- [ Data ingestion - Use an Azure data pipline to collect and store data to a data lake.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#data-ingestion)
+- [ Data ingestion - Use an Azure data pipline to collect and store data to a data lake.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md)
 
