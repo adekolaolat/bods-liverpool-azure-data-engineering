@@ -1,31 +1,39 @@
-# Approach
+# Getting Started with BODS
 
-Automate Data Collection
+One of the first things to do when working with data is to get familiar with the data source and understand how to interact with it. So, before jumping into building the pipeline, it’s important to explore how the BODS API works and what kind of data it returns.
 
-First step in this data ingestion or collection would be to have an idea of how to talk to BODS and specify which operator data that is of interest.
+For this project, I’ll be focusing on buses in Liverpool and surrounding areas within the Merseyside region.
 
-## How to talk to BODS?
+The two main bus operators in Liverpool are **Arriva** and **Stagecoach**. So, how do we get data for their buses?
 
-Arriva and Stagecoach are major bus operators in Liverpool, so we would like to get thier bus locations. So how do we get data for the buses?
+We can do that by making an API call! 
 
-We make an API call - GET request To make this API call, we need two things from BODS.
+## Talking to BODS
 
-1. API key
-2. Data feed IDs for bus operators in the region of interest.
+To make an API call to BODS, you’ll need two things:
 
-BODS datasource has unique datafeed for each bus operators in the region they operate. ID for an operator can be checked using the filter tool for a region of interest [ here](https://data.bus-data.dft.gov.uk/avl/?status=live).
+- An API key
 
-For Liverpool buses, this would be the datafeed  info
+- Feed IDs for the bus operators in your region of interest
+
+BODS provides a unique data feed for each bus operator, depending on where they operate. To find the data feed ID for a specific operator, you can use the filter tool on the BODS website [ here](https://data.bus-data.dft.gov.uk/avl/?status=live).
+
+Getting an API key is easy. [ Sign up](https://data.bus-data.dft.gov.uk/) for an account on BODS, and you’ll be able to generate one and see have access to the API docs.
+
+For Liverpool buses, this would be the data feed  information :
 
 | Operator/Publisher    | Data feed ID| Region|
 | -------- | ------- |------- |
 | Arriva UK Bus | 708    |Arriva Merseyside   |
 | Stagecoach | 1695    | Stagecoach NW   |
 
+Once you're set up, the API gives you access to real-time bus location data, **updated every 10 seconds**.
 
 ### Make API call
 
-To view how the response would look like, open your terminal and make a API call using this `curl` command.
+To see what the API response looks like, you can try making a HTTP GET request right from your terminal. Just use the`curl`command along with the URL below to make the call and view the response.
+
+Use your API key!
 
 For Arriva
 
@@ -40,5 +48,7 @@ curl https://data.bus-data.dft.gov.uk/api/v1/datafeed/1695/?api_key=your_api_key
 ```
 ### Response
 
-Response is in an XML format, which is in SIRI-VM. Find sample responses for both Arriva and Stagecoach here.
+The response from the BODS API comes in XML format, following the SIRI-VM (Vehicle Monitoring) standard. You can check out this [ sample responses (xml files) ](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/tree/main/sample-raw-data)  for both Arriva and Stagecoach.
+
+Understanding how to make the API call, the structure of the URL and what the response looks like is a key part of building the pipeline and transformations that would be done. .
 
