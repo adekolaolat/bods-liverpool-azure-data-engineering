@@ -21,7 +21,7 @@ Open Azure portal and :
 
 **Create Storage**
 
-- Create a new resource and choose "Storage account"
+- Create a new resource and choose "**Storage account**"
 - Configure :
   - Azure subscription ( A free accouunt would most likely have the name **"Azure Subscription 1"**)
   - Resource group as `livbusbods` (this is a new resource group which will hold all our resources including ADF resource and future resources we would like to use in the project)
@@ -44,7 +44,7 @@ Open Azure portal and :
 
 ### 2. Set up Azure Data Factory
 
-- Go to "Create resource" → "Integration" → "Data Factory" or search Data Factory
+- Go to **"Create resource"** → **"Integration"** → **"Data Factory"** or search Data Factory
 - Configure:
   - Resource group : choose `livbusbods`, same group as ADLG2
   - Name: `livbusbods-adf`
@@ -53,7 +53,7 @@ Open Azure portal and :
 
 Click "Review + create" → "Create" to complete the set up for the Azure Data Factory.
 
-**One more thing !** - Create the config file
+### **One more thing !** - Create the config file
 
 I've set up a simple config file to keep things organized. This file stores the bus operator codes and their corresponding data feed IDs, which are essential for making the API calls and saving the data in the correct path for each operator.
 
@@ -76,38 +76,145 @@ Add the json file by uploading to the `config` container.
 
 Now, we have ADLSG2 all set up for our pipeline.
 
-## Build pipeline in ADF
+## Building the pipeline in ADF
 
-Launch Azure Data Factory studio by navigating to the ADF resource - `livbusbods-adf`
+I want my pipeline to first **look up** my `operator.json` file in my `config` container in ADLSG2 and **for each** operator it finds in this file, it should use this information to make an HTTP GET Request to the BODS enpoint to retrieve the raw data. This raw data would be moved (**copied**) to the `bronze` container in the ADLSG2.
 
-I want my pipeline to **look up** my `operator.json` file in my `config` container in ADLSG2 and **for each** operator it finds in this file, it should use this information to make a HTTP GET Request to the BODS enpoint.
+How do we build this process/pipeline?
 
-### Add new Pipeline
+We can split up this process into several activities:
+ 
+    First Activity is to look up the the config container for the operator.json file.
+ 
+    Second Activity goes through each content over the config file
 
-### Create Dataset for the Bus Operators using the operators.json file
+        and move data copied from the BODS data source via HTTPS to ADLSG2 container per operator. - Third Activity
 
-- Go to **Author** → Factory Resources
-- Hover on **Datasets** and click the three dots to create a New  dataset
-- Search for "Azure Data Lake" and select ADLSG2
-- Select JSON as format
-- Set Name to `BusOperators`
-- Under Linked Service, Create a new Linked service
-- Set the name to `BusOperators`- not necessarily the same as Dataset name, but I like it. Add description
-- Select AutoResolveIntegrationRuntime - I want Azure to mange this.
-- Select Account key as Authentication 
-- Choose your Azure Subcription (`Azure Subscription 1`)
-- Select Storage account - `livbusdatastore` - where our operator.json file lies 
-- Click on Create.
-- Under **Connection** tab, select Linked service as `BusOperators`, Choose the file path to the `operators.json` file
+So, for the pipeline I'll need 3 Activities:
+
+1. **Look up Activity**
+2. **ForEach Activity**
+    
+    3. **Copy Activity** 
+
+
+### Implementing pipeline in ADF
+
+Launch ADF studio by navigating to `livbusbods-adf` resource
+
+Go to **Author** → Factory Resources 
+
+and Create a new pipeline and name it `pullbodstobronze`
+
+#### 1. Add Lookup activity
+
+Under Activities search for Lookup. 
+
+Drag and Drop it into the pipeline pane.
+
+Set name of Lookup activity to `LookupBusOperators`
+
+Go to Settings tab
+Add a source dataset, which will reference the config file 
+ - Create new Source dataset
+
+- **Create Linked Services Dataset for the Bus Operators using the operators.json file**
+
+  - Search for "Azure Data Lake" and select ADLSG2
+  - Select JSON as format
+  - Set Name to `BusOperators`
+  - Under Linked Service, Create a new Linked service
+  - Set the name to `BusOperators`- not necessarily the same as Dataset name, but I like it. Add description
+  - Select AutoResolveIntegrationRuntime - I want Azure to mange this.
+  - Select Account key as Authentication 
+  - Choose your Azure Subcription (`Azure Subscription 1`)
+  - Select Storage account - `livbusdatastore` - where our operator.json file lies 
+  - Click on Create.
+  - Under **Connection** tab, select Linked service as `BusOperators`, Choose the file path to the `operators.json` file
 
     ![alt text](/images/bus-operator-dataset.png)
 
-- Test the connection - the output should be the content of the  file.
+  - Test the connection - the output should be the content of the  file.
 
+  Go back to `LookupBusOperators` Activity in the pipeline
+  
+  - Under **Settings**, select `BusOperator` as **Source dataset**
+  - Uncheck **First Row only**
 
+This Activity is now set up to point to the config file     `operator.json` file
 
+#### **2. Add ForEach activity**
+
+- Drag and drop the For Each activity
+
+- Under Activities search ForEach. 
+
+- Drag and Drop it into the pipeline pane.
+
+- Set name of activity to `ForEachBusOperator`
+
+- Connect `LookupBusOperators` Activity to `ForEachBusOperator` using `on success` arrow.
+
+- Go to Settings tab
+
+  - Add this code to Item field  as dynamic content  `@activity('LookupBusOperators').output.value`
+
+  - This is a pipeline expression and which gets the value from the `LookupBusOperator` i.e. the data in the config file.
+
+ForEach activity is now almost set up. 
+
+Next step is to add the Copy Activity to the `ForEachBusOperator` Activity.
  
-    
+
+#### **3. Add Copy activity**
+
+The copy Activity reads data from from a **source** data and writes to a **sink/destination** data store.
+
+In this case, my source would be the BODS API endpoint and my sink is ADLSG2.
+
+I still have a requirement to write my data to the bronze container in a particular format following a timestamp format.
+
+But first, let's configure the source dataset in the Copy activity, what do I need to consider?
+
+I'll be leveraging pipeline/dataset parameterization to make my API calls dynamic, first let create  dataset for my source.
+
+#### Create source dataset for Copy activity
+
+My source dataset would reference the BODS API endpoint, so I need to to grab the data feed ID for each bus operator. I'll pass the data feed information, stored as `apiEndpoint` in the config file as a parameter to this dataset.
+
+Got to Factory Resources
+
+- Select the Copy Activity in `ForEachBusOperator`
+-  Set Name to `CopyBODSRawData`
+- Go to **Source** tab, and Create new Source dataset
+ - Search for "**HTTP**" and select **HTTP**
+  - Select "**XML**" as format
+  - Set Name to `httplinkedservicebodsnorthwest`
+  - Under Linked Service, Create a new Linked service
+  - Set the name to `httplinkedservicebodsnorthwest`- not necessarily the same as Dataset name, but I like it. Add a description
+  - Select AutoResolveIntegrationRuntime - I want Azure to manage this.
+  - Select "**Base URL**" as `https://data.bus-data.dft.gov.uk/api/v1/`
+  - Set "**Authentication type**" to "**Anonymous**"
+  - Enable "**Server certificates validation**"
+  - Test connection
+  - Click on Create.
+  
+  Go to `httplinkedservicebodsnorthwest` dataset
+  - Click on Create.
+  - Select Storage account - `livbusdatastore` - where our operator.json file lies 
+  - Click on Create.
+  - Under **Connection** tab, select Linked service as `BusOperators`, Choose the file path to the `operators.json` file
+
+- 
+
+Click on the `ForEachBusOperator` activity and add a new Copy Activity to it.
+
+Take to the da
+
+
+Add the data to the Operator in the  data 
+
+
 
 
 
