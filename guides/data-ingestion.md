@@ -12,7 +12,7 @@ In ADLS Gen2, I’ll store a configuration file for the operators I need to make
 - File should be organised in a queryable stucture, using a file naming convention that includes the operator code and timestamp.
 - Keep a config file in ADLSG2 to map API call for each bus operator.
 
-## Concepts applied
+## Azure Concepts applied
 - [Pipelines and Activities](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities?tabs=data-factory)
 - [Linked Services](https://learn.microsoft.com/en-us/azure/data-factory/concepts-datasets-linked-services?tabs=data-factory)
 - [Datasets](https://learn.microsoft.com/en-us/azure/data-factory/concepts-datasets-linked-services?tabs=data-factory)
@@ -25,7 +25,14 @@ In ADLS Gen2, I’ll store a configuration file for the operators I need to make
 
 ## Setting up Azure Resources
 
-Firstly, set up the storage - Azure Data Lake Storage.
+Azure resources and pipelines  was set up using the Azure portal in this project. However, it can also be set up other ways using CLI, Powershell, etc. 
+
+<details><summary><b> Skip Me! </b></summary>
+
+JSON for the final pipeline, activities and dataset set up can be found [here](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion-json.md)
+
+</details>
+
 
 ### 1. Set up Azure Data Lake Gen 2
 Open Azure portal and :
@@ -33,7 +40,7 @@ Open Azure portal and :
 **Create Storage**
 
 - Create a new resource and choose "**Storage account**"
-- Configure :
+- **Configure** :
   - Azure subscription ( A free accouunt would most likely have the name **"Azure Subscription 1"**)
   - Resource group as `livbusbods` (this is a new resource group which will hold all our resources including ADF resource and future resources we would like to use in the project)
   - Storage name  as `livbusdatastore` 
@@ -340,7 +347,9 @@ If needed, I can easily configure the pipeline to collect data from additional o
 
 ![alt text](/images/raw-file-saved-in-format.png)
 
+### JSON
 
+JSON for the final pipeline, activities and dataset set up can be found [here](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion-json.md)
   
 
-[ Go to Implementation Steps](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps)
+[⏮️ Go to Implementation Steps](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps)
