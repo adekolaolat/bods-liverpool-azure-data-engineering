@@ -183,8 +183,6 @@
 
 <details><summary><b> Dataset - ADLS2LinkedServiceBODS_bronze</b></summary>
 
-Use your BODS API key!!!
-
 ```
 {
     "name": "ADLS2LinkedServiceBODS_bronze",
@@ -230,6 +228,8 @@ Use your BODS API key!!!
 
 
 <details><summary><b> Dataset - httplinkedservicebodsnorthwest </b></summary>
+
+<b>Use your BODS API key!!!</b>
 
 ```
 {
