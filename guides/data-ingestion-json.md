@@ -183,6 +183,8 @@
 
 <details><summary><b> Dataset - ADLS2LinkedServiceBODS_bronze</b></summary>
 
+Use your BODS API key!!!
+
 ```
 {
     "name": "ADLS2LinkedServiceBODS_bronze",
@@ -249,7 +251,7 @@
             "location": {
                 "type": "HttpServerLocation",
                 "relativeUrl": {
-                    "value": "@concat(dataset().apiEndpoint, '?api_key=d952afc16dbf43c0726102754408092217b11864')",
+                    "value": "@concat(dataset().apiEndpoint, '?api_key=YOUR_API_KEY')",
                     "type": "Expression"
                 }
             }
