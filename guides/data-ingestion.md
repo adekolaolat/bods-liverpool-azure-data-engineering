@@ -12,6 +12,17 @@ In ADLS Gen2, I’ll store a configuration file for the operators I need to make
 - File should be organised in a queryable stucture, using a file naming convention that includes the operator code and timestamp.
 - Keep a config file in ADLSG2 to map API call for each bus operator.
 
+## Concepts applied
+- [Pipelines and Activities](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities?tabs=data-factory)
+- [Linked Services](https://learn.microsoft.com/en-us/azure/data-factory/concepts-datasets-linked-services?tabs=data-factory)
+- [Datasets](https://learn.microsoft.com/en-us/azure/data-factory/concepts-datasets-linked-services?tabs=data-factory)
+- [Parameterizing Linked Services](https://learn.microsoft.com/en-us/azure/data-factory/parameterize-linked-services?tabs=data-factory)
+- [Pipeline expression languages and functions](https://learn.microsoft.com/en-us/azure/data-factory/control-flow-expression-language-functions)
+- [Triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers)
+- [Security - Store credentials in Azure key vault](https://learn.microsoft.com/en-us/azure/data-factory/store-credentials-in-key-vault)  -**TO DO**
+- [Security - Use Azure Key vault in pipeline activities](https://learn.microsoft.com/en-us/azure/data-factory/how-to-use-azure-key-vault-secrets-pipeline-activities) -**TO DO**
+
+
 ## Setting up Azure Resources
 
 Firstly, set up the storage - Azure Data Lake Storage.
@@ -78,11 +89,15 @@ Now, we have ADLSG2 all set up for our pipeline.
 
 ## Building the pipeline in ADF
 
-I want my pipeline to first **look up** my `operator.json` file in my `config` container in ADLSG2 and **for each** operator it finds in this file, it should use this information to make an HTTP GET Request to the BODS enpoint to retrieve the raw data. This raw data would be moved (**copied**) to the `bronze` container in the ADLSG2.
+I want this pipeline to start by **looking up** the `operator.json` file stored in the `config` container in ADLS Gen2.
+
+**For each** operator listed in that file, the pipeline should use the details to make an HTTP GET request to the BODS API to fetch the raw data.
+
+Once the data is retrieved, it should be moved (**copied**) into the `bronze` container in ADLS Gen2 for storage.
 
 How do we build this process/pipeline?
 
-We can split up this process into several activities:
+This process into several activities:
  
     First Activity is to look up the the config container for the operator.json file.
  
@@ -99,6 +114,8 @@ So, for the pipeline I'll need 3 Activities:
 
 
 ### Implementing pipeline in ADF
+
+![alt text](/images/ingestion-pipeline.png)
 
 Launch ADF studio by navigating to `livbusbods-adf` resource
 
@@ -134,6 +151,9 @@ Add a source dataset, which will reference the config file
 
     ![alt text](/images/bus-operator-dataset.png)
 
+
+
+
   - Test the connection - the output should be the content of the  file.
 
   Go back to `LookupBusOperators` Activity in the pipeline
@@ -141,7 +161,7 @@ Add a source dataset, which will reference the config file
   - Under **Settings**, select `BusOperator` as **Source dataset**
   - Uncheck **First Row only**
 
-This Activity is now set up to point to the config file     `operator.json` file
+**The Look up activity is now set up to point to the config file** (`operator.json`)
 
 #### **2. Add ForEach activity**
 
@@ -168,17 +188,17 @@ Next step is to add the Copy Activity to the `ForEachBusOperator` Activity.
 
 #### **3. Add Copy activity**
 
-The copy Activity reads data from from a **source** data and writes to a **sink/destination** data store.
+The Copy Activity is used to move data from a **source** to a **sink (or destination)**.
 
-In this case, my source would be the BODS API endpoint and my sink is ADLSG2.
+In my case, the source will be the BODS API endpoint, and the sink will be Azure Data Lake Storage Gen2 (ADLS Gen2).
 
-I still have a requirement to write my data to the bronze container in a particular format following a timestamp format.
+Eventually, I want to store the data in the `bronze` container using a specific folder structure based on a timestamp format.
 
-But first, let's configure the source dataset in the Copy activity, what do I need to consider?
+But before we get to that, let’s start by setting up the source dataset in the Copy Activity. Since I want the API calls to be dynamic, I’ll be using pipeline and dataset parameterization. 
 
-I'll be leveraging pipeline/dataset parameterization to make my API calls dynamic, first let create  dataset for my source.
+So first up, let’s create the dataset for the source
 
-#### Create source dataset for Copy activity
+#### Create Source dataset for Copy activity
 
 My source dataset would reference the BODS API endpoint, so I need to to grab the data feed ID for each bus operator. I'll pass the data feed information, stored as `apiEndpoint` in the config file as a parameter to this dataset.
 
@@ -192,7 +212,7 @@ Got to Factory Resources
   - Set Name to `httplinkedservicebodsnorthwest`
   - Under Linked Service, Create a new Linked service
   - Set the name to `httplinkedservicebodsnorthwest`- not necessarily the same as Dataset name, but I like it. Add a description
-  - Select AutoResolveIntegrationRuntime - I want Azure to manage this.
+  - Select `AutoResolveIntegrationRuntime` - I want Azure to manage this.
   - Select "**Base URL**" as `https://data.bus-data.dft.gov.uk/api/v1/`
   - Set "**Authentication type**" to "**Anonymous**"
   - Enable "**Server certificates validation**"
@@ -200,24 +220,125 @@ Got to Factory Resources
   - Click on Create.
   
   Go to `httplinkedservicebodsnorthwest` dataset
-  - Click on Create.
-  - Select Storage account - `livbusdatastore` - where our operator.json file lies 
-  - Click on Create.
-  - Under **Connection** tab, select Linked service as `BusOperators`, Choose the file path to the `operators.json` file
+  - Select `httplinkedservicebodsnorthwest` as the Linked service.
+  - Go to Parameters tab and create a new parameter 
+    - Name : `apiEndpoint`.
+    - Type : String. *Leave default value empty*
+  - Go back to Connection tab and add the code as dynamic content to **Relative URL**
+  ```
+  @concat(dataset().apiEndpoint, '?api_key=your_apikey')
 
-- 
+  this attaches the datafeed endpoint for each operator along with the api key. to make the request.
+  ```
+  - Click OK to finish source dataset configuration.
 
-Click on the `ForEachBusOperator` activity and add a new Copy Activity to it.
+  - Go Back to `CopyBODSRawData` activity under Dataset properties, add `@item().apiEndpoint` as dynamic content. This will allow the Copy Activity to grab the data feed value int the ForEach activity.
+  - Set **Request method**  to `GET`
+  - **Source dataset is now set up**
 
-Take to the da
+#### Create Sink dataset for Copy activity
+
+For Sink, the dataset will point to the ADLSG2  and would want to save the response to the `bronze` container in the format below  format to meet the requirement. 
+
+```
+
+ /bronze/
+    /operator=AMSY/
+      /year=yyyy/
+        /month=MM
+            /day=dd/
+                operator_YYYYMMDD_HHMMSS.json
+    /operator=SCCU/
+      /same_structure/
+
+```
+so, I'll be using two parameters here, One is the operator name and a trigger time parameter which would be the current time the data is received (or close)
+
+Let's set up the Sink data now since we have and idea of how it should look.
+- Select the `CopyBODSRawData` activity in `ForEachBusOperator`activity in the pipeline pane.
+- Go to **Sink** tab, and Create new Sink dataset
+ - Search for "**Azure Data Lake**" and select **ADLSG2**
+  - Select "**JSON**" as format. file format will now be saved in JSON, rather than XML. The content the remain the same.
+  - Set Name to  `ADLS2LinkedServiceBODS_bronze` 
+  - Under Linked Service, Create a new Linked service
+  - Set the name to `busdatatobronze_adls2`- not necessarily the same as Dataset name. Add a description
+  - Select `AutoResolveIntegrationRuntime` - I want Azure to manage this.
+- Select **Account** key as the Authentication 
+- Choose your Azure Subcription (`Azure Subscription 1`)
+- Select Storage account - `livbusdatastore` (ADLSG2)
+- Test Connection to Linked service ans **Save**
+  
+  Go to `ADLS2LinkedServiceBODS_bronzet` dataset
+  - Select `busdatatobronze_adls2` as the Linked service.
+  - Go to Parameters tab and create a new parameter s
+    - Name : `operator`.
+    - Type : String. *Leave default value empty*
+    - Name : `triggerTime`.
+    - Type : String. *Leave default value empty*
+  - Go back to Connection tab and in **File path**, select Browse and choose `bronze` as root folder 
+  - Select the next directory field in **File path** and add the add the expression below as dynamic content. This creates the file path structured by operator, year, month and day.
+```
+@concat(
+  'operator=', dataset().operator, 
+  '/year=', formatDateTime(dataset().triggerTime, 'yyyy'),
+  '/month=', formatDateTime(dataset().triggerTime, 'MM'),
+  '/day=', formatDateTime(dataset().triggerTime, 'dd'), 
+  '/'
+)
+```
+  - Select the File name field in **File path** and add the add the expression below as dynamic content. This will save the file in the described format.
+```
+  @concat(
+  dataset().operator, '_',
+  formatDateTime(dataset().triggerTime, 'yyyyMMdd_HHmmss'),
+  '.json'
+)
+```
+
+- Go Back to `CopyBODSRawData` activity. 
+  - Under Sink, In  Dataset properties, add `@item().operator` as dynamic content value for `operator` parameter. This will allow the Copy Activity to grab the operator value in the ForEach activity.
+  - Add `@convertFromUtc(utcNow(),'GMT Standard Time')` as dynamic content value for `tiggerTime`. This will save the current time in GMT and will use paseet to the dataset for the naming structure .
+
+The Sink configuration is now set up for `CopyBODSRawData` activity.
+
+Our `pullbodstobronze` pipeline for ingestion of the data is now almost complete.
+
+#### Adding a Trigger to the Pipeline
+Now, we need to add a 5 minutes trigger to the pipeline. The trigger is straightforward to configure. This was the configuration used in this project.
+
+- Click on `Trigger` at the top of the pipeline pane
+-  Add a New Tigger and set name to `BODS_5min`
+ - Choose `ScheduleTrigger` as **Type**
+  - Select a **Start date/time**.
+  - Set Name to  `ADLS2LinkedServiceBODS_bronze` 
+  - Choose Time Zone  to be `Dublin, Edinburgh, Lisbon, London (UTC+0)`
+  - Set **Recurrence** to `5 minutes`
+  - Choose **Status** to be `Started`
 
 
-Add the data to the Operator in the  data 
+#### Deploying the Pipeline
+
+The pipeline can be published after resolving any validation error that may pop up. If ready, Click on the **Publish all** button at the top of the Data Factory window, validate the pipelines and triggers and Publish.
+
+A message should pop up at the top right showing the pipeline has been published successfully.
 
 
 
+### Outcome
+
+By navigating to the storage account, the deployed pipeline is now automatically collecting raw data from BODS every 5 minutes. It’s also storing the data using the directory and file naming structure that was designed.
+
+If needed, I can easily configure the pipeline to collect data from additional operators, by updating the `operators.json` configuration file.
 
 
+**Dynamic creation  of operator directory in the bronze container**
+
+![alt text](/images/operator-directory.png)
+
+
+**Dynamic naming structure for raw data automatically collected and saved in the corresponding directory for each day**
+
+![alt text](/images/raw-file-saved-in-format.png)
 
 
   
