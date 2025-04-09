@@ -338,14 +338,14 @@ By navigating to the storage account, the deployed pipeline is now automatically
 If needed, I can easily configure the pipeline to collect data from additional operators, by updating the `operators.json` configuration file.
 
 
-**Dynamic creation  of operator directory in the bronze container**
+- **Dynamic naming structure for raw data automatically collected and saved in the corresponding directory for each day**
+
+![alt text](/images/raw-file-saved-in-format.png)
+
+- **Created each operator directory in the bronze container dynamically**
 
 ![alt text](/images/operator-directory.png)
 
-
-**Dynamic naming structure for raw data automatically collected and saved in the corresponding directory for each day**
-
-![alt text](/images/raw-file-saved-in-format.png)
 
 ### JSON
 
