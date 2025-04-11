@@ -42,14 +42,31 @@ How do I want to process into the silver?, How often?
 
 At first I might want to load all the data and then subsequently, I may want to update this weekly.
 
+## What's the plan?
+
 
 
 
 ## Task requirements
 -
 
+
+
+
 ## Concepts applied
 - [Delta Lake](https://learn.microsoft.com/en-us/azure/databricks/introduction/delta-comparison)
 - [DLT](https://learn.microsoft.com/en-us/azure/databricks/dlt/)
 - [ETL pipeline with DLT](https://learn.microsoft.com/en-us/azure/databricks/getting-started/data-pipeline-get-started)
 -
+
+
+
+## Set Up Azure Databricks Workspace
+
+- Go to Azure Portal.
+
+- Create a Databricks workspace.
+
+- Choose your subscription, resource group, and location.
+
+- After deployment, launch the workspace and create a new cluster.
