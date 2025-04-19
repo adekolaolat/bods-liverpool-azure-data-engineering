@@ -330,7 +330,6 @@ The pipeline can be published after resolving any validation error that may pop 
 A message should pop up at the top right showing the pipeline has been published successfully.
 
 
-
 ### Outcome
 
 By navigating to the storage account, the deployed pipeline is now automatically collecting raw data from BODS every 5 minutes. It’s also storing the data using the directory and file naming structure that was designed.
@@ -342,7 +341,7 @@ If needed, I can easily configure the pipeline to collect data from additional o
 
 ![alt text](/images/raw-file-saved-in-format.png)
 
-- **Created each operator directory in the bronze container dynamically**
+- **Each operator directory in the bronze container  is created dynamically**
 
 ![alt text](/images/operator-directory.png)
 
