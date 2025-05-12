@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project focuses on building a scalable Azure data pipeline solution to collect public bus location in Liverpool via the **Bus Open Data Service (BODS)** API.
+This project focuses on building a scalable Azure data pipeline solution to collect, store and process public bus location data in Liverpool via the **Bus Open Data Service (BODS)** API.
 
 
 ## About BODS
@@ -33,7 +33,7 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 - Azure account or create a free account.
 
-- Fundamentals of Azure Data Engineering, **Azure Data Factory**, **Azure Data Lake Gen 2**.
+- Fundamentals of Azure Data Engineering, **Azure Data Factory**, **Azure Data Lake Gen 2**, **Azure Databicks**, **Azure Synapse Analytics**, **Power BI**.
 
 - Knowledge of [ Medalllion lakehouse architecture](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
 
@@ -51,3 +51,21 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 
 - [Transformation - Tranform raw data (bronze level) using Azure Databricks into queryable data](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md)
+
+- Transformation - Tranform silver level to gold data.
+
+- Data warehouse -  Use Azure Synapse Analytics to connect to gold table in data lake.
+
+- Visualisation -  Set up Power BI to report to view daily bus operation.
+
+## Results
+
+Analytiic Workload-  Daily report showing figures on how public buses were run
+
+
+![alt text](images/Bus_Operation_Liverpool.jpg)
+
+
+Map visuals - 
+
+
