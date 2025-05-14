@@ -44,7 +44,7 @@ To start, I’ll load all the existing data into the Silver layer (batch load). 
 
 - Use Azure Databricks for transformation of raw data.
 - Create Azure Databricks Workspace
-- Set up Azure Databricks to connect to ADLS gen2
+- [Set up Azure Databricks to connect to ADLS gen2](https://learn.microsoft.com/en-us/azure/databricks/connect/storage/tutorial-azure-storage)
 - Set up Azure key vault to hold secrets.
 - Implement silver notbook 
 - Implement gold notebook
@@ -57,6 +57,7 @@ To start, I’ll load all the existing data into the Silver layer (batch load). 
 - Since I have collected some data already, I need to do a batch loading of the historical data from `bronze` container and then updating daily with new data, all flowing into the `silver` container.
 - Use Auto Loader to read files from bonze container. [Why use Autoloader?](https://www.youtube.com/watch?v=8a38Fv9cpd8)
 - Implement batch and incremental loading for gold notebook.
+- Daily updates of data in the silver and gold layer.
 
 
 
@@ -102,9 +103,8 @@ Fill out:
 
 **Cluster will take few minutes to spin up**
 
-Accessing DataLake in Gen2
 
-## [Connecting ADLS Gen2 in Databricks](https://learn.microsoft.com/en-us/azure/databricks/connect/storage/tutorial-azure-storage)
+## Connecting ADLS Gen2 in Databricks
 
 - Register an Application to create the client ID  and secret. In this context, Databrick is the client.
 
@@ -251,6 +251,8 @@ The gold notebook implementation include:
 - Create Access Key in Databricks workspace.
 Configure the Cluster to use. You can use the same compute.
 - Give permison to ADF to have access to keyVault via IAM (Access control)
+- Add the the silver and gold notebook to pipeline pane.
+- Add a daily schedule trigger to the pipeline.
 
 
 ## Helpful Readings
@@ -267,7 +269,7 @@ The maximum number of new bytes to be processed in every trigger. You can specif
 Default value: None
 
 
-For this project - I set my maxFiles per Trigger to 
+For this project - I set my maxFiles per Trigger to 600
 ```
 
 ```
@@ -279,4 +281,6 @@ The maximum number of new files to be processed in every trigger. When used toge
 Default value: 1000
 ```
 
+[ ⏮️Go to Data Ingestion](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md)
 
+[ ⏭️ Data Warehousing](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-warehousing.md)
