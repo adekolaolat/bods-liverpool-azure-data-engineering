@@ -54,13 +54,13 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 - Transformation - Tranform silver level to gold data.
 
-- Data warehouse -  Use Azure Synapse Analytics to connect to gold table in data lake.
+- Data Warehousing – Connect Azure Synapse Analytics to the gold data stored in Azure Data Lake for efficient querying and reporting.
 
-- Visualisation -  Set up Power BI to report to view daily bus operation.
+- Visualisation -  Set up Power BI to report/dashboard to view daily bus operation.
 
 ## Results
 
-Analytiic Workload-  Daily report showing figures on how public buses were run
+Analytic Workload-  Daily report showing figures on how public buses were run
 
 
 ![alt text](images/Bus_Operation_Liverpool.jpg)
