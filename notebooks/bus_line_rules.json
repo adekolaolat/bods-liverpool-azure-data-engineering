@@ -1,0 +1,15 @@
+{
+  "lines_to_exclude_completely": ["109", "1A", "16", "16A"],
+  "special_filters": [
+    {
+      "lines": ["1", "3"],
+      "latitude_condition": ">", 
+      "latitude_value": 53.50
+    },
+    {
+      "lines": ["14", "14A"],
+      "latitude_condition": "<", 
+      "latitude_value": 53.33
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 [⏮️ Set up Azure  Resources](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md#setting-up-azure-resources)
 
-[⏮️ Outcome for Data Ingestion](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md#outcome)
+[⏮️ Outcome of Data Ingestion](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md#outcome)
 
 **Linked services will need to be created with the same name  in the dataset.**
 

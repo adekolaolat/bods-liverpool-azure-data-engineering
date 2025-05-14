@@ -18,7 +18,7 @@ To make an API call to BODS, you’ll need two things:
 
 BODS provides a unique data feed for each bus operator, depending on where they operate. To find the data feed ID for a specific operator, you can use the filter tool on the BODS website [ here](https://data.bus-data.dft.gov.uk/avl/?status=live).
 
-Getting an API key is easy. [ Sign up](https://data.bus-data.dft.gov.uk/) for an account on BODS, and you’ll be able to generate one and have access to the API docs.
+Getting an API key is easy. [ Sign up](https://data.bus-data.dft.gov.uk/) for an account on BODS, and you’ll be able to generate one and have access to the API docs. For more detailed guide on using the API, check [here.](https://data.bus-data.dft.gov.uk/guide-me/)
 
 For Liverpool buses, this would be the data feed  information :
 
@@ -57,4 +57,5 @@ Understanding how to make the API call, the structure of the URL and what the re
 [ Go to Implementation Steps](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps)
 
 [ ⏭️ Data Ingestion](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md)
+
 
