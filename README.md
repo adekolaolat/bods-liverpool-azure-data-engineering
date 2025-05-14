@@ -52,11 +52,11 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 - [Transformation - Tranform raw data (bronze level) using Azure Databricks into queryable data](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md)
 
-- Transformation - Tranform silver level to gold data.
+- [Transformation - Tranform silver data to gold tables.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md#getting-gold-layer-from-silver)
 
-- Data Warehousing – Connect Azure Synapse Analytics to the gold data stored in Azure Data Lake for efficient querying and reporting.
+- [Data Warehousing – Connect Azure Synapse Analytics to the gold data stored in Azure Data Lake for efficient querying and reporting.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-warehousing.md)
 
-- Visualisation -  Set up Power BI to report/dashboard to view daily bus operation.
+- [Visualisation -  Set up Power BI to report/dashboard to view daily bus operation.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-viz.md)
 
 ## Results
 
