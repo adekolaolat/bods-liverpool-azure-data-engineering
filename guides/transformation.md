@@ -1,6 +1,7 @@
 # Transformation
 
 ## More digging into the raw data
+
 Understanding the structure and schema of the raw data is important before transforming it. The raw JSON files use UTF-8 with BOM encoding, so I’ll make sure to handle that properly when reading them. After looking at the VehicleActivity element for both operators, I found that their schemas are similar but not exactly the same.
 
 After flattening the raw data into a tabular manner I got this number of possible fields for each operator. 
@@ -125,16 +126,16 @@ In Databricks :
 
 - Create secrete name.
 
-- Appication Id as the DNS name
+- Appication ID as the DNS name
 
 - Key vault URL - Resource ID
 
 ## Silver Notebook Implementation
-The [silver notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/add-tranformation/notebooks/Silver%20Notebook.ipynb) uses PySpark to processes raw JSON data  stored in Azure Data Lake (Bronze layer), flattens it, and writes it to the Silver layer as a Delta table.
+The [silver notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/notebooks/Silver%20Notebook.ipynb) uses PySpark to processes raw JSON data  stored in Azure Data Lake (Bronze layer), flattens it, and writes it to the Silver layer as a Delta table.
 
 The raw data is heavily nested.
 
-Implementation of the [silver notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/add-tranformation/notebooks/Silver%20Notebook.ipynb) include : 
+Implementation of the [silver notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/notebooks/Silver%20Notebook.ipynb) include : 
 
 ### Authentication and Configuration
 
@@ -194,7 +195,7 @@ Implementation of the [silver notebook](https://github.com/adekolaolat/bods-live
 
 
 
-[Silver Transformation Notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/add-tranformation/notebooks/Silver%20Notebook.ipynb)
+[Silver Transformation Notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/notebooks/Silver%20Notebook.ipynb)
 
 ## Getting Gold layer from Silver.
 
@@ -212,7 +213,7 @@ and Incremental loading for the data - implement notebook to load previous day's
 
 ## Gold Notebook Implementation
 
-The gold notebook implementation include:
+The [gold notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/notebooks/Gold%20Notebook.ipynb) implementation include:
 
 ### Date Setup and data loading from silver
 - Defines `yesterday` and `day before yesterday` for partition filtering.
@@ -241,7 +242,7 @@ The gold notebook implementation include:
 - Write enriched data to Gold Delta table (partitioned by date).
 
 
-## Integrate Silver and Gold Notebook into ADF
+## Orchestrate Silver and Gold Notebook using ADF
 
 
 - Create new pipeline in ADF
@@ -255,6 +256,9 @@ Configure the Cluster to use. You can use the same compute.
 - Add a daily schedule trigger to the pipeline.
 
 
+[Gold Notebook](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/notebooks/Gold%20Notebook.ipynb)
+
+[Gold Notebook - Batch Load](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/notebooks/Gold%20Notebook%20-%20Batch%20Load.ipynb)
 ## Helpful Readings
 - [Auto Loader Readings](https://aeshantechhub.co.uk/databricks-autoloader-advanced-techniques-and-best-practices/)
 
