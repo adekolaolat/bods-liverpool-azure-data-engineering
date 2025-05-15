@@ -33,11 +33,11 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 - Azure account or create a free account.
 
-- Fundamentals of Azure Data Engineering, **Azure Data Factory**, **Azure Data Lake Gen 2**, **Azure Databicks**, **Azure Synapse Analytics**, **Power BI**.
+- Fundamentals of **Azure Data Engineering**, **Azure Data Factory**, **Azure Data Lake Gen 2**, **Azure Databicks**, **Azure Synapse Analytics**, **Power BI**.
+- [ Medalllion lakehouse architecture](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
 
-- PySpark
+- Pyspark, SQL / T-SQL
 
-- Knowledge of [ Medalllion lakehouse architecture](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
 
 
 ## Pipeline Overview
