@@ -355,3 +355,7 @@ JSON for the final pipeline, activities and dataset set up can be found [here](h
   
 
 [⏮️ Go to Implementation Steps](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps)
+
+[⏭️ Transformation](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md)
+
+
