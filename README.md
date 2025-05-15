@@ -1,9 +1,9 @@
 
-# Azure pipeline to collect public bus location data. 
+# Azure Data Pipeline for Liverpool Public Bus Activity.
 
 ## Overview
 
-This project focuses on building a scalable Azure data pipeline solution to collect, store and process public bus location data in Liverpool via the **Bus Open Data Service (BODS)** API.
+This project builds a scalable Azure data pipeline solution to collect, store and process public bus location data in Liverpool via the **Bus Open Data Service (BODS)** API.
 
 
 ## About BODS
@@ -35,22 +35,24 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 - Fundamentals of Azure Data Engineering, **Azure Data Factory**, **Azure Data Lake Gen 2**, **Azure Databicks**, **Azure Synapse Analytics**, **Power BI**.
 
+- PySpark
+
 - Knowledge of [ Medalllion lakehouse architecture](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
 
 
 ## Pipeline Overview
 
-This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps) is a walkthrough for implementing a scalable Azure solution that automates the collection of raw location data from the two major bus operators (Arriva and Stagecoach) in Liverpool and store these in a query-able file format system using Azure Data Factory and Azure Data Lake Gen 2 (ADLSG2). The stored data would be used for later transformation and processing into usable data for analysis or prediction use cases.
+This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/README.md#implementation-steps) is a walkthrough for implementing a scalable Azure pipeline that pulls real-time bus location data from Liverpool’s main operators(Arriva and Stagecoach) using the BODS API. Azure Data Factory handles the data ingestion, dropping it into Azure Data Lake (bronze). Databricks then cleans and transforms it into structured (silver) and enriched (gold) data, adding logic like idle detection and tracking movement through Liverpool. The gold data is made queryable via Synapse, and Power BI turns it into a daily bus operations reports.
 
 
-![alt text](<images/BODS_to_ADLSG2_bronze.png>)
+![alt text](<images/BODS_pipeline_powerBI.png>)
 
 ## Implementation Steps
-- [ Understand the data and how to interact with the BODS API endpoint that is needed](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/bods-data-guide.md). 
-- [ Data ingestion - Use an Azure data pipline to collect and store live location data to a data lake.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md)
+- [ Understand how to interact with the BODS API endpoint. ](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/bods-data-guide.md)
+- [ Data ingestion - Use Azure Data Factory to collect and store live location data to a Azure Data Lake Storage.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-ingestion.md)
 
 
-- [Transformation - Tranform raw data (bronze level) using Azure Databricks into queryable data](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md)
+- [Transformation - Tranform raw data (bronze level) using Azure Databricks into silver level](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md)
 
 - [Transformation - Tranform silver data to gold tables.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md#getting-gold-layer-from-silver)
 
@@ -60,12 +62,18 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 ## Results
 
-Analytic Workload-  Daily report showing figures on how public buses were run
+#### Analytic Workload-  Daily report showing figures on how public buses were run
 
 
 ![alt text](images/Bus_Operation_Liverpool.jpg)
 
 
-Map visuals - 
 
+#### Processed data used to map out bus trails for both operators on May 8th 2025.
+
+
+![alt text](images/Bus_trails_kepler.jpg)
+
+
+This shows how Arriva serve many routes within Liverpool, while Stagecoach mostly covers routes heading out of the city. It also highlights busier spots — mainly bus stations — which are common destinations for inbound buses.
 

@@ -1,5 +1,8 @@
 # Data Ingestion
 
+
+![alt text](../images/BODS_to_ADLSG2_bronze.png)
+
 For data ingestion, I’ll be using two resources - Azure Data Factory (ADF) and Azure Data Lake Storage Gen2 (ADLS Gen2).
 
 I’ll like to collect the live bus location data every 5 minutes and storing the raw files saved in ADLS Gen2. Azure Data Factory will handle the orchestration, automating the process of calling the BODS API and saving the responses into the correct location in the data lake.
@@ -337,7 +340,7 @@ By navigating to the storage account, the deployed pipeline is now automatically
 If needed, I can easily configure the pipeline to collect data from additional operators, by updating the `operators.json` configuration file.
 
 
-- **Dynamic naming structure for raw data automatically collected and saved in the corresponding directory for each day**
+- **Dynamic naming structure for raw data automatically collected and partitioned for each day**
 
 ![alt text](/images/raw-file-saved-in-format.png)
 
