@@ -22,8 +22,8 @@ In ADLS Gen2, I’ll store a configuration file for the operators I need to make
 - [Parameterizing Linked Services](https://learn.microsoft.com/en-us/azure/data-factory/parameterize-linked-services?tabs=data-factory)
 - [Pipeline expression languages and functions](https://learn.microsoft.com/en-us/azure/data-factory/control-flow-expression-language-functions)
 - [Triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers)
-- [Security - Store credentials in Azure key vault](https://learn.microsoft.com/en-us/azure/data-factory/store-credentials-in-key-vault)  -**TO DO**
-- [Security - Use Azure Key vault in pipeline activities](https://learn.microsoft.com/en-us/azure/data-factory/how-to-use-azure-key-vault-secrets-pipeline-activities) -**TO DO**
+- [Security - Store credentials in Azure key vault](https://learn.microsoft.com/en-us/azure/data-factory/store-credentials-in-key-vault)
+- [Security - Use Azure Key vault in pipeline activities](https://learn.microsoft.com/en-us/azure/data-factory/how-to-use-azure-key-vault-secrets-pipeline-activities)
 
 
 ## Setting up Azure Resources
@@ -340,7 +340,7 @@ By navigating to the storage account, the deployed pipeline is now automatically
 If needed, I can easily configure the pipeline to collect data from additional operators, by updating the `operators.json` configuration file.
 
 
-- **Dynamic naming structure for raw data automatically collected and partitioned for each day**
+- **Dynamic naming structure for collected raw data - partitioned for each day**
 
 ![alt text](/images/raw-file-saved-in-format.png)
 
