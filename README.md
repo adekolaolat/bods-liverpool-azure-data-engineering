@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project builds a scalable Azure data pipeline solution to collect, store and process public bus location data in Liverpool via the **Bus Open Data Service (BODS)** API.
+This project builds a scalable Azure data pipeline solution to collect, store, process public bus data in Liverpool from **Bus Open Data Service (BODS)**.
 
 
 ## About BODS
