@@ -54,26 +54,28 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 - [Transformation - Tranform raw data (bronze level) using Azure Databricks into silver level](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md)
 
-- [Transformation - Tranform silver data to gold tables.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md#getting-gold-layer-from-silver)
+- [Transformation - Tranform silver data to gold tables using Azure Databricks.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/transformation.md#getting-gold-layer-from-silver)
 
 - [Data Warehousing – Connect Azure Synapse Analytics to the gold data stored in Azure Data Lake for efficient querying and reporting.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-warehousing.md)
 
 - [Visualisation -  Set up Power BI to report/dashboard to view daily bus operation.](https://github.com/adekolaolat/bods-liverpool-azure-data-engineering/blob/main/guides/data-viz.md)
 
+*The steps integrates data governance and security throughout the implementation process, which ensures that right access is granted to resources and sensitive info like API keys, access keys, etc  are protected as required in a data engineering scenario.*
+
 ## Results
 
-#### Analytic Workload-  Daily report showing figures on how public buses were run
+- #### Analytic Workload-  Daily report showing figures on how public buses serve Liverpool and surrounding regions
 
 
 ![alt text](images/Bus_Operation_Liverpool.jpg)
 
 
 
-#### Processed data used to map out bus trails for both operators on May 8th 2025.
+- #### Processed data used to map out trails for Arriva and Stagecoach buses on May 8th 2025.
 
 
 ![alt text](images/Bus_trails_kepler.jpg)
 
 
-This shows how Arriva serve many routes within Liverpool, while Stagecoach mostly covers routes heading out of the city. It also highlights busier spots — mainly bus stations — which are common destinations for inbound buses.
+Shows how Arriva serve many routes within Liverpool, while Stagecoach mostly covers routes heading out of the city. It also highlights busier spots — mainly bus stations — which are destinations points for inbound buses.
 
