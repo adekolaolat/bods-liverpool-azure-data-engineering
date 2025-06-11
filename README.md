@@ -22,9 +22,9 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 - Transport Authorities & City Planning need historical data used to make decisons to improve route planning, predict delays, and enhance public transport efficiency.
 
-- Bus Operators can leverage insights from analysis of the historical data to benchmark performance and make strategic decisions to gain a competitive edge or break monopoly in certain regions.
+- Bus Operators can leverage insights from analysis of the historical data to benchmark performance and make strategic decision that creates a competitive market, benefiting both businesses and consumers.
 
-- Help public transport users save money on tickets for routes with multiple operators, reduce travel time, and improve their commuting experience.
+- Help public transport users save money on tickets for routes with ,multiple operators, reduce travel time, and improve their commuting experience.
 
 
 ## Requirements
