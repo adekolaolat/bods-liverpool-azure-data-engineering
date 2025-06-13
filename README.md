@@ -64,18 +64,16 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 ## Results
 
-- #### Analytic Workload-  Daily report showing figures on how public buses serve Liverpool and surrounding regions
-
-
-![alt text](images/Bus_Operation_Liverpool.jpg)
-
-
-
 - #### Processed data used to map out trails for Arriva and Stagecoach buses on May 8th 2025.
 
 
 ![alt text](images/Bus_trails_kepler.jpg)
 
 
-Shows how Arriva serve many routes within Liverpool, while Stagecoach mostly covers routes heading out of the city. It also highlights busier spots — mainly bus stations — which are destinations points for inbound buses.
+*Shows how Arriva serve many routes within Liverpool, while Stagecoach mostly covers routes heading out of the city. It also highlights busier spots — mainly bus stations — which are destinations points for inbound buses.*
+
+
+- #### Analytic Workload-  Daily report showing figures on how public buses serve Liverpool and surrounding regions
+
+![alt text](images/Bus_Operation_Liverpool.jpg)
 
