@@ -26,6 +26,8 @@ Currently, the Bus Open Data Service (BODS) only provides live location data, me
 
 - Help public transport users save money on tickets for routes with ,multiple operators, reduce travel time, and improve their commuting experience.
 
+- When combined with other datasets like air quality, weather, e.t.c could help with emissions studies to achieve Net Zero Goverment Initiative.
+
 
 ## Requirements
 
@@ -62,7 +64,7 @@ This [ guide](https://github.com/adekolaolat/bods-liverpool-azure-data-engineeri
 
 *The steps integrates data governance and security throughout the implementation process, which ensures that right access is granted to resources and sensitive info like API keys, access keys, etc  are protected as required in a data engineering scenario.*
 
-## Results
+## Outcome
 
 - #### Processed data used to map out trails for Arriva and Stagecoach buses on May 8th 2025.
 
