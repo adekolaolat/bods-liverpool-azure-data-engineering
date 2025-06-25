@@ -1,5 +1,7 @@
 # Transformation
 
+In this phase, I used Databricks (built on Apache Spark) to pull in the raw files from storage and transform them into a more structured format for the silver and gold layers. It is all part of a lakehouse setup, which sits on top of a data lake (ADLS Gen2) using Delta tables. The approach combines the SQL-based capabilities you would expect from a data warehouse with the flexibility and scalability of a data lake.
+
 ## More digging into the raw data
 
 Understanding the structure and schema of the raw data is important before transforming it. The raw JSON files use UTF-8 with BOM encoding, so I’ll make sure to handle that properly when reading them. After looking at the VehicleActivity element for both operators, I found that their schemas are similar but not exactly the same.
